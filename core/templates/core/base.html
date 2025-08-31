@@ -1,0 +1,288 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketPlace - Главная</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="nav-brand">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>MarketPlace</span>
+                </div>
+                
+                <div class="nav-menu">
+                    <a href="#" class="nav-link active">Главная</a>
+                    <a href="{% url 'catalog' %}" class="nav-link">Каталог</a>
+                    <a href="#" class="nav-link">Акции</a>
+                    <a href="#" class="nav-link">О нас</a>
+                </div>
+                
+                <div class="nav-actions">
+                    <div class="search-box">
+                        <input type="text" placeholder="Поиск товаров...">
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <button class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </button>
+                    <button class="user-btn">
+                        <i class="fas fa-user"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Добро пожаловать в <span class="highlight">MarketPlace</span></h1>
+                <p class="hero-subtitle">Откройте для себя лучшие товары по выгодным ценам</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">Начать покупки</button>
+                    <button class="btn btn-secondary">Узнать больше</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-placeholder">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Популярные категории</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3>Одежда</h3>
+                    <p>Стильная одежда для всех</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Электроника</h3>
+                    <p>Современные гаджеты</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Дом и сад</h3>
+                    <p>Все для уюта</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>Автотовары</h3>
+                    <p>Аксессуары для авто</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="products">
+        <div class="container">
+            <h2 class="section-title">Рекомендуемые товары</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-placeholder">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="product-badge">-20%</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>iPhone 15 Pro</h3>
+                        <div class="product-price">
+                            <span class="current-price">89 990 ₽</span>
+                            <span class="old-price">112 990 ₽</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>4.9 (234)</span>
+                        </div>
+                        <button class="btn btn-primary">В корзину</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-placeholder">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <div class="product-badge">-15%</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>MacBook Air M2</h3>
+                        <div class="product-price">
+                            <span class="current-price">119 990 ₽</span>
+                            <span class="old-price">139 990 ₽</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>4.8 (156)</span>
+                        </div>
+                        <button class="btn btn-primary">В корзину</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-placeholder">
+                            <i class="fas fa-headphones"></i>
+                        </div>
+                        <div class="product-badge new">Новинка</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>AirPods Pro 2</h3>
+                        <div class="product-price">
+                            <span class="current-price">24 990 ₽</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>4.7 (89)</span>
+                        </div>
+                        <button class="btn btn-primary">В корзину</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-placeholder">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <div class="product-badge">-30%</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Футболка Nike</h3>
+                        <div class="product-price">
+                            <span class="current-price">2 990 ₽</span>
+                            <span class="old-price">4 290 ₽</span>
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>4.2 (67)</span>
+                        </div>
+                        <button class="btn btn-primary">В корзину</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>Быстрая доставка</h3>
+                    <p>Доставка по всей России</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Безопасные платежи</h3>
+                    <p>Защищенные транзакции</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-undo"></i>
+                    </div>
+                    <h3>Возврат товара</h3>
+                    <p>30 дней на возврат</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Поддержка 24/7</h3>
+                    <p>Всегда на связи</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MarketPlace</h3>
+                    <p>Ваш надежный партнер в покупках</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Каталог</h4>
+                    <ul>
+                        <li><a href="#">Одежда</a></li>
+                        <li><a href="#">Электроника</a></li>
+                        <li><a href="#">Дом и сад</a></li>
+                        <li><a href="#">Автотовары</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Поддержка</h4>
+                    <ul>
+                        <li><a href="#">Контакты</a></li>
+                        <li><a href="#">Доставка</a></li>
+                        <li><a href="#">Возврат</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Социальные сети</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MarketPlace. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

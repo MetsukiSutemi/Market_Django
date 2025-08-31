@@ -1,0 +1,331 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог товаров - MarketPlace</title>
+    <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="nav-brand">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>MarketPlace</span>
+                </div>
+                
+                <div class="nav-menu">
+                    <a href="{% url 'base' %}" class="nav-link">Главная</a>
+                    <a href="{% url 'catalog' %}" class="nav-link active">Каталог</a>
+                    <a href="#" class="nav-link">Акции</a>
+                    <a href="#" class="nav-link">О нас</a>
+                </div>
+                
+                <div class="nav-actions">
+                    <div class="search-box">
+                        <input type="text" placeholder="Поиск товаров...">
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <button class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">3</span>
+                    </button>
+                    <button class="user-btn">
+                        <i class="fas fa-user"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="#" class="breadcrumb-item">Главная</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-item active">Каталог</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="catalog-layout">
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">Категории</h3>
+                        <div class="category-filters">
+                            <label class="filter-item">
+                                <input type="checkbox" checked>
+                                <span class="checkmark"></span>
+                                <span>Все товары</span>
+                                <span class="count">({{ products.count }})</span>
+                            </label>
+                            {% for category in categories %}
+                            <label class="filter-item">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                                <span>{{ category.name }}</span>
+                                <span class="count">{{ category.product_set.count }}</span>
+                            </label>
+                            {% endfor %}
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">Цена</h3>
+                        <div class="price-filter">
+                            <div class="price-inputs">
+                                <input type="number" placeholder="От" class="price-input">
+                                <span class="price-separator">—</span>
+                                <input type="number" placeholder="До" class="price-input">
+                            </div>
+                            <button class="btn btn-primary btn-sm">Применить</button>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">Бренды</h3>
+                        <div class="brand-filters">
+                            <label class="filter-item">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                                <span>Apple</span>
+                                <span class="count">(12)</span>
+                            </label>
+                            <label class="filter-item">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                                <span>Samsung</span>
+                                <span class="count">(8)</span>
+                            </label>
+                            <label class="filter-item">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                                <span>Nike</span>
+                                <span class="count">(15)</span>
+                            </label>
+                            <label class="filter-item">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                                <span>Adidas</span>
+                                <span class="count">(9)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">Рейтинг</h3>
+                        <div class="rating-filters">
+                            <label class="filter-item">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="count">(45)</span>
+                            </label>
+                            <label class="filter-item">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="count">(67)</span>
+                            </label>
+                            <label class="filter-item">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="count">(34)</span>
+                            </label>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Products Section -->
+                <div class="products-section">
+                    <!-- Toolbar -->
+                    <div class="toolbar">
+                        <div class="toolbar-left">
+                            <h2 class="page-title">Каталог товаров</h2>
+                            <span class="products-count">{{ products.count }} товаров</span>
+                        </div>
+                        <div class="toolbar-right">
+                            <div class="sort-select">
+                                <select>
+                                    <option>По популярности</option>
+                                    <option>По цене (возрастание)</option>
+                                    <option>По цене (убывание)</option>
+                                    <option>По рейтингу</option>
+                                    <option>По новизне</option>
+                                </select>
+                            </div>
+                            <div class="view-toggle">
+                                <button class="view-btn active" data-view="grid">
+                                    <i class="fas fa-th"></i>
+                                </button>
+                                <button class="view-btn" data-view="list">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Products Grid -->
+                    <div class="products-grid">
+                        <!-- Product Card 1 -->
+
+                        {% for product in products %}
+                        <div class="product-card">
+                            <div class="product-image">
+                                <div class="product-placeholder">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <div class="product-badge">{{ product.discount }}%</div>
+                                <button class="wishlist-btn">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">{{ product.name }}</h3>
+                                <div class="product-price">
+                                    <span class="current-price">{{ product.price }} ₽</span>
+                                </div>
+                                <div class="product-rating">
+                                    <div class="stars">
+                                        {% if product.rating == 0 %}
+                                        <i class="far fa-star"></i>
+                                        {% endif %}
+                                        {% if product.rating == 1 %}
+                                        <i class="fas fa-star"></i>
+                                        {% endif %}
+                                        {% if product.rating == 2 %}
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        {% endif %}
+                                        {% if product.rating == 3 %}
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        {% endif %}
+                                        {% if product.rating == 4 %}
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        {% endif %}
+                                        {% if product.rating == 5 %}
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        {% endif %}
+                                    </div>
+                                    {% if product.rating_count == 0%}
+                                    <span class="rating-text">(0)</span>
+                                    {% endif %}
+                                    {% if product.rating_count > 0%}
+                                    <span class="rating-text">({{ product.rating_count }})</span>
+                                    {% endif %}
+                                </div>
+                                <div class="product-actions">
+                                    <button class="btn btn-primary">В корзину</button>
+                                    <button class="btn btn-secondary">Быстрый просмотр</button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <button class="pagination-btn prev">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="pagination-numbers">
+                            <button class="pagination-btn active">1</button>
+                            <button class="pagination-btn">2</button>
+                            <button class="pagination-btn">3</button>
+                            <span class="pagination-dots">...</span>
+                            <button class="pagination-btn">8</button>
+                        </div>
+                        <button class="pagination-btn next">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MarketPlace</h3>
+                    <p>Ваш надежный партнер в покупках</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Каталог</h4>
+                    <ul>
+                        <li><a href="#">Одежда</a></li>
+                        <li><a href="#">Электроника</a></li>
+                        <li><a href="#">Дом и сад</a></li>
+                        <li><a href="#">Автотовары</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Поддержка</h4>
+                    <ul>
+                        <li><a href="#">Контакты</a></li>
+                        <li><a href="#">Доставка</a></li>
+                        <li><a href="#">Возврат</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Социальные сети</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MarketPlace. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+
+
