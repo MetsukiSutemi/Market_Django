@@ -34,8 +34,10 @@
                         </button>
                     </div>
                     <button class="cart-btn">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count">0</span>
+                        <a href="{% url 'cart' %}">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
                     </button>
                     <button class="user-btn">
                         <i class="fas fa-user"></i>

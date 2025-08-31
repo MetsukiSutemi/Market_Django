@@ -12,3 +12,7 @@ def catalog(request):
     categories = Category.objects.all()
     products = Product.objects.all()
     return render(request, 'core/catalog.html', {'categories': categories, 'products': products})
+
+
+def cart(request):
+    return render(request, 'cart/cart.html')
