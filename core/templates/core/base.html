@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
+    <!-- Шапка -->
     <header class="header">
         <div class="container">
             <nav class="nav">
@@ -47,7 +47,7 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Секция Hero -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -66,7 +66,7 @@
         </div>
     </section>
 
-    <!-- Categories Section -->
+    <!-- Секция Категории -->
     <section class="categories">
         <div class="container">
             <h2 class="section-title">Популярные категории</h2>
@@ -103,114 +103,54 @@
         </div>
     </section>
 
-    <!-- Featured Products -->
+    <!-- Секция новых товаров -->
     <section class="products">
         <div class="container">
-            <h2 class="section-title">Рекомендуемые товары</h2>
+            <h2 class="section-title">Новые товары</h2>
             <div class="products-grid">
+                {% for product in products %}
+                {% if product.is_new %}
+                {% if product.discount > 0 %}
                 <div class="product-card">
                     <div class="product-image">
                         <div class="product-placeholder">
                             <i class="fas fa-mobile-alt"></i>
                         </div>
-                        <div class="product-badge">-20%</div>
+                        {% if product.discount > 0 %}
+                        <div class="product-badge">Скидка {{ product.discount }}%</div>
+                        {% endif %}
                     </div>
                     <div class="product-info">
-                        <h3>iPhone 15 Pro</h3>
+                        <h3>{{ product.name }}</h3>
                         <div class="product-price">
-                            <span class="current-price">89 990 ₽</span>
-                            <span class="old-price">112 990 ₽</span>
+                            <span class="current-price">{{ product.price }} ₽</span>
+                            {% if product.discount > 0 %}
+                            <span class="old-price">{{ product.get_price_without_discount }} ₽</span>
+                            {% endif %}
                         </div>
                         <div class="product-rating">
+                            {% for star in product.rating_stars_range %}
+                            {% if star == 'full' %}
                             <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span>4.9 (234)</span>
-                        </div>
-                        <button class="btn btn-primary">В корзину</button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <div class="product-placeholder">
-                            <i class="fas fa-laptop"></i>
-                        </div>
-                        <div class="product-badge">-15%</div>
-                    </div>
-                    <div class="product-info">
-                        <h3>MacBook Air M2</h3>
-                        <div class="product-price">
-                            <span class="current-price">119 990 ₽</span>
-                            <span class="old-price">139 990 ₽</span>
-                        </div>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span>4.8 (156)</span>
-                        </div>
-                        <button class="btn btn-primary">В корзину</button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <div class="product-placeholder">
-                            <i class="fas fa-headphones"></i>
-                        </div>
-                        <div class="product-badge new">Новинка</div>
-                    </div>
-                    <div class="product-info">
-                        <h3>AirPods Pro 2</h3>
-                        <div class="product-price">
-                            <span class="current-price">24 990 ₽</span>
-                        </div>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span>4.7 (89)</span>
-                        </div>
-                        <button class="btn btn-primary">В корзину</button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <div class="product-placeholder">
-                            <i class="fas fa-tshirt"></i>
-                        </div>
-                        <div class="product-badge">-30%</div>
-                    </div>
-                    <div class="product-info">
-                        <h3>Футболка Nike</h3>
-                        <div class="product-price">
-                            <span class="current-price">2 990 ₽</span>
-                            <span class="old-price">4 290 ₽</span>
-                        </div>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            {% elif star == 'half' %}
+                            <i class="fas fa-star-half-alt"></i>
+                            {% else %}
                             <i class="far fa-star"></i>
-                            <span>4.2 (67)</span>
+                            {% endif %}
+                            {% endfor %}
+                            <span>{{ product.average_rating }} ({{ product.reviews_count }})</span>
                         </div>
                         <button class="btn btn-primary">В корзину</button>
                     </div>
                 </div>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
+    <!-- Секция Особенности -->
     <section class="features">
         <div class="container">
             <div class="features-grid">
@@ -246,7 +186,7 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Футер -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">

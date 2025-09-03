@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
+    <!-- Шапка -->
     <header class="header">
         <div class="container">
             <nav class="nav">
@@ -34,8 +34,10 @@
                         </button>
                     </div>
                     <button class="cart-btn">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count">3</span>
+                        <a href="{% url 'cart' %}">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
                     </button>
                     <button class="user-btn">
                         <i class="fas fa-user"></i>
@@ -45,7 +47,7 @@
         </div>
     </header>
 
-    <!-- Breadcrumb -->
+    <!-- Хлебные крошки -->
     <div class="breadcrumb">
         <div class="container">
             <nav class="breadcrumb-nav">
@@ -56,11 +58,11 @@
         </div>
     </div>
 
-    <!-- Main Content -->
+    <!-- Основное содержимое -->
     <main class="main-content">
         <div class="container">
             <div class="catalog-layout">
-                <!-- Sidebar -->
+                <!-- Боковая панель -->
                 <aside class="sidebar">
                     <div class="sidebar-section">
                         <h3 class="sidebar-title">Категории</h3>
@@ -168,9 +170,9 @@
                     </div>
                 </aside>
 
-                <!-- Products Section -->
+                <!-- Раздел товаров -->
                 <div class="products-section">
-                    <!-- Toolbar -->
+                    <!-- Панель инструментов -->
                     <div class="toolbar">
                         <div class="toolbar-left">
                             <h2 class="page-title">Каталог товаров</h2>
@@ -197,17 +199,22 @@
                         </div>
                     </div>
 
-                    <!-- Products Grid -->
+                    <!-- Сетка товаров -->
                     <div class="products-grid">
                         <!-- Product Card 1 -->
-
-                        {% for product in products %}
+                        <!-- Карточка товара -->
+                        {% for product in page_obj %}
                         <div class="product-card">
                             <div class="product-image">
                                 <div class="product-placeholder">
                                     <i class="fas fa-mobile-alt"></i>
                                 </div>
+                                {% if product.discount > 0 %}
                                 <div class="product-badge">{{ product.discount }}%</div>
+                                {% endif %}
+                                {% if product.is_new %}
+                                <div class="product-badge">Новинка</div>
+                                {% endif %}
                                 <button class="wishlist-btn">
                                     <i class="far fa-heart"></i>
                                 </button>
@@ -219,40 +226,21 @@
                                 </div>
                                 <div class="product-rating">
                                     <div class="stars">
-                                        {% if product.rating == 0 %}
-                                        <i class="far fa-star"></i>
-                                        {% endif %}
-                                        {% if product.rating == 1 %}
-                                        <i class="fas fa-star"></i>
-                                        {% endif %}
-                                        {% if product.rating == 2 %}
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        {% endif %}
-                                        {% if product.rating == 3 %}
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        {% endif %}
-                                        {% if product.rating == 4 %}
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        {% endif %}
-                                        {% if product.rating == 5 %}
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        {% endif %}
+                                        {% for star in product.rating_stars_range %}
+                                            {% if star == 'full' %}
+                                                <i class="fas fa-star"></i>
+                                            {% elif star == 'half' %}
+                                                <i class="fas fa-star-half-alt"></i>
+                                            {% else %}
+                                                <i class="far fa-star"></i>
+                                            {% endif %}
+                                        {% endfor %}
                                     </div>
-                                    {% if product.rating_count == 0%}
+                                    {% if product.reviews_count == 0%}
                                     <span class="rating-text">(0)</span>
                                     {% endif %}
-                                    {% if product.rating_count > 0%}
-                                    <span class="rating-text">({{ product.rating_count }})</span>
+                                    {% if product.reviews_count > 0%}
+                                    <span class="rating-text">({{ product.reviews_count }})</span>
                                     {% endif %}
                                 </div>
                                 <div class="product-actions">
@@ -262,30 +250,41 @@
                             </div>
                         </div>
                         {% endfor %}
+                        
                     </div>
 
-                    <!-- Pagination -->
+                    <!-- Пагинация -->
                     <div class="pagination">
-                        <button class="pagination-btn prev">
+                        {% if page_obj.has_previous %}
+                          <a class="pagination-btn prev" href="?page={{ page_obj.previous_page_number }}">
                             <i class="fas fa-chevron-left"></i>
-                        </button>
+                          </a>
+                        {% endif %}
+                      
                         <div class="pagination-numbers">
-                            <button class="pagination-btn active">1</button>
-                            <button class="pagination-btn">2</button>
-                            <button class="pagination-btn">3</button>
-                            <span class="pagination-dots">...</span>
-                            <button class="pagination-btn">8</button>
+                          {% for p in page_obj.paginator.page_range %}
+                            {% if p == page_obj.number %}
+                              <span class="pagination-btn active">{{ p }}</span>
+                            {% elif p == 1 or p == page_obj.paginator.num_pages or p >= page_obj.number|add:'-2' and p <= page_obj.number|add:'2' %}
+                              <a class="pagination-btn" href="?page={{ p }}">{{ p }}</a>
+                            {% elif forloop.first or forloop.last %}
+                              <span class="pagination-dots">...</span>
+                            {% endif %}
+                          {% endfor %}
                         </div>
-                        <button class="pagination-btn next">
+                      
+                        {% if page_obj.has_next %}
+                          <a class="pagination-btn next" href="?page={{ page_obj.next_page_number }}">
                             <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
+                          </a>
+                        {% endif %}
+                      </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
+    <!-- Футер -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -327,5 +326,8 @@
     </footer>
 </body>
 </html>
+
+
+
 
 

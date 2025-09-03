@@ -4,16 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Корзина - ChupepShop</title>
+    <title>Корзина - MarketPlace</title>
     
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/cart.css' %}">
 </head>
 <body>
@@ -27,7 +25,7 @@
                 </div>
                 
                 <div class="nav-menu">
-                    <a href="{% url 'base' %}" class="nav-link active">Главная</a>
+                    <a href="{% url 'base' %}" class="nav-link">Главная</a>
                     <a href="{% url 'catalog' %}" class="nav-link">Каталог</a>
                     <a href="#" class="nav-link">Акции</a>
                     <a href="#" class="nav-link">О нас</a>
@@ -41,10 +39,8 @@
                         </button>
                     </div>
                     <button class="cart-btn">
-                        <a href="{% url 'cart' %}">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span class="cart-count">0</span>
-                        </a>
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
                     </button>
                     <button class="user-btn">
                         <i class="fas fa-user"></i>
@@ -58,12 +54,15 @@
     <main class="main-content">
         <div class="container">
             <!-- Breadcrumb -->
-            <nav aria-label="breadcrumb" class="mb-4">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#"><i class="fas fa-home me-1"></i>Главная</a></li>
-                    <li class="breadcrumb-item active">Корзина</li>
-                </ol>
-            </nav>
+            <div class="breadcrumb">
+                <nav class="breadcrumb-nav">
+                    <a href="{% url 'base' %}" class="breadcrumb-item">
+                        <i class="fas fa-home"></i> Главная
+                    </a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item active">Корзина</span>
+                </nav>
+            </div>
 
             <!-- Cart Header -->
             <div class="cart-header">
@@ -74,9 +73,9 @@
                 <p class="cart-subtitle">В вашей корзине 3 товара</p>
             </div>
 
-            <div class="row">
+            <div class="cart-layout">
                 <!-- Cart Items -->
-                <div class="col-lg-8">
+                <div class="cart-items-section">
                     <div class="cart-items">
                         <!-- Cart Item 1 -->
                         <div class="cart-item">
@@ -201,7 +200,7 @@
                 </div>
 
                 <!-- Cart Summary -->
-                <div class="col-lg-4">
+                <div class="cart-summary-section">
                     <div class="cart-summary">
                         <h4 class="summary-title">Итого</h4>
                         
@@ -226,22 +225,22 @@
                         </div>
 
                         <div class="summary-actions">
-                            <button class="btn btn-primary btn-checkout">
-                                <i class="fas fa-credit-card me-2"></i>
-                                Оформить заказ
-                            </button>
-                            <a href="#" class="btn btn-outline-primary">
-                                <i class="fas fa-arrow-left me-2"></i>
-                                Продолжить покупки
-                            </a>
+                                                    <button class="btn btn-primary btn-checkout">
+                            <i class="fas fa-credit-card"></i>
+                            Оформить заказ
+                        </button>
+                        <a href="{% url 'catalog' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                            Продолжить покупки
+                        </a>
                         </div>
 
                         <!-- Promo Code -->
                         <div class="promo-section">
                             <h5>Промокод</h5>
                             <div class="promo-input-group">
-                                <input type="text" class="form-control" placeholder="Введите промокод">
-                                <button class="btn btn-outline-secondary">Применить</button>
+                                <input type="text" class="promo-input" placeholder="Введите промокод">
+                                <button class="btn btn-secondary">Применить</button>
                             </div>
                         </div>
 
@@ -270,80 +269,72 @@
             <!-- Recommended Products -->
             <div class="recommended-section">
                 <h3>Рекомендуемые товары</h3>
-                <div class="row">
-                    <div class="col-lg-3 col-md-4 col-6 mb-4">
-                        <div class="product-card">
-                            <div class="product-image">
-                                <div class="placeholder-image">
-                                    <i class="fas fa-laptop fa-2x"></i>
-                                </div>
-                                <div class="product-badge">-15%</div>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <div class="product-placeholder">
+                                <i class="fas fa-laptop"></i>
                             </div>
-                            <div class="product-info">
-                                <h5>MacBook Air M2</h5>
-                                <div class="product-price">
-                                    <span class="current-price">119 990 ₽</span>
-                                    <span class="old-price">139 990 ₽</span>
-                                </div>
-                                <button class="btn btn-primary btn-sm w-100 mt-2">
-                                    <i class="fas fa-cart-plus me-1"></i>Добавить
-                                </button>
+                            <div class="product-badge">-15%</div>
+                        </div>
+                        <div class="product-info">
+                            <h5>MacBook Air M2</h5>
+                            <div class="product-price">
+                                <span class="current-price">119 990 ₽</span>
+                                <span class="old-price">139 990 ₽</span>
                             </div>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-cart-plus"></i>Добавить
+                            </button>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-6 mb-4">
-                        <div class="product-card">
-                            <div class="product-image">
-                                <div class="placeholder-image">
-                                    <i class="fas fa-gamepad fa-2x"></i>
-                                </div>
-                            </div>
-                            <div class="product-info">
-                                <h5>PlayStation 5</h5>
-                                <div class="product-price">
-                                    <span class="current-price">49 990 ₽</span>
-                                </div>
-                                <button class="btn btn-primary btn-sm w-100 mt-2">
-                                    <i class="fas fa-cart-plus me-1"></i>Добавить
-                                </button>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <div class="product-placeholder">
+                                <i class="fas fa-gamepad"></i>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-6 mb-4">
-                        <div class="product-card">
-                            <div class="product-image">
-                                <div class="placeholder-image">
-                                    <i class="fas fa-book fa-2x"></i>
-                                </div>
+                        <div class="product-info">
+                            <h5>PlayStation 5</h5>
+                            <div class="product-price">
+                                <span class="current-price">49 990 ₽</span>
                             </div>
-                            <div class="product-info">
-                                <h5>Книга "Python для начинающих"</h5>
-                                <div class="product-price">
-                                    <span class="current-price">1 490 ₽</span>
-                                </div>
-                                <button class="btn btn-primary btn-sm w-100 mt-2">
-                                    <i class="fas fa-cart-plus me-1"></i>Добавить
-                                </button>
-                            </div>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-cart-plus"></i>Добавить
+                            </button>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-6 mb-4">
-                        <div class="product-card">
-                            <div class="product-image">
-                                <div class="placeholder-image">
-                                    <i class="fas fa-dumbbell fa-2x"></i>
-                                </div>
-                                <div class="product-badge">Новинка</div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <div class="product-placeholder">
+                                <i class="fas fa-book"></i>
                             </div>
-                            <div class="product-info">
-                                <h5>Гантели 10кг пара</h5>
-                                <div class="product-price">
-                                    <span class="current-price">3 990 ₽</span>
-                                </div>
-                                <button class="btn btn-primary btn-sm w-100 mt-2">
-                                    <i class="fas fa-cart-plus me-1"></i>Добавить
-                                </button>
+                        </div>
+                        <div class="product-info">
+                            <h5>Книга "Python для начинающих"</h5>
+                            <div class="product-price">
+                                <span class="current-price">1 490 ₽</span>
                             </div>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-cart-plus"></i>Добавить
+                            </button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <div class="product-placeholder">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <div class="product-badge">Новинка</div>
+                        </div>
+                        <div class="product-info">
+                            <h5>Гантели 10кг пара</h5>
+                            <div class="product-price">
+                                <span class="current-price">3 990 ₽</span>
+                            </div>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-cart-plus"></i>Добавить
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -351,10 +342,48 @@
         </div>
     </main>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MarketPlace</h3>
+                    <p>Ваш надежный партнер в покупках</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Каталог</h4>
+                    <ul>
+                        <li><a href="#">Одежда</a></li>
+                        <li><a href="#">Электроника</a></li>
+                        <li><a href="#">Дом и сад</a></li>
+                        <li><a href="#">Автотовары</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Поддержка</h4>
+                    <ul>
+                        <li><a href="#">Контакты</a></li>
+                        <li><a href="#">Доставка</a></li>
+                        <li><a href="#">Возврат</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Социальные сети</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MarketPlace. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
     <!-- Custom JS -->
-    <script src="{% static 'core/js/main.js' %}"></script>
     <script src="{% static 'js/cart.js' %}"></script>
 </body>
 </html>
